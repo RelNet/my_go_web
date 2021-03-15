@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="hzh.my_go_web.model.GameInfo" table="go.game_info">
+        <meta attribute="class-description">
+            对局详情
+        </meta>
+        <composite-id>
+            <key-property name="gameId" column="game_id" type="int"/>
+            <key-property name="player" column="player" type="int"/>
+            <key-property name="stepNum" column="step_num" type="int"/>
+            <key-property name="location" column="location" type="string"/>
+        </composite-id>
+    </class>
+</hibernate-mapping>

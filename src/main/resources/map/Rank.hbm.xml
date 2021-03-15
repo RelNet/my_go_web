@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="hzh.my_go_web.model.Rank" table="go.rank">
+        <meta attribute="class-description">
+            排行
+        </meta>
+        <composite-id>
+            <key-property name="id" column="id" type="int"/>
+            <key-property name="point" column="point" type="int"/>
+        </composite-id>
+    </class>
+</hibernate-mapping>
