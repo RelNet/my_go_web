@@ -1,4 +1,4 @@
-package hzh.my_go_web.controller
+package hzh.my_go_web.controllers
 
 import com.alibaba.fastjson.JSONObject
 import hzh.my_go_web.model.Status

@@ -19,6 +19,12 @@ class GameService {
         return hibernate.queryList(hql)
     }
 
+    fun getColor(id: Int): Game {
+        val hibernate = Hibernate<Any, Game>()
+        val hql = "SELECT black, white FROM Game game WHERE id = $id"
+        return hibernate.queryList(hql)[0]
+    }
+
     fun updateWinner(id: Int, winner: Int) {
         val hibernate = Hibernate<Any, Any>()
         val hql = "UPDATE Game game SET winner = $winner WHERE id = $id"

@@ -24,21 +24,21 @@ ws指的是使用ws通信，其余是普通http请求响应
 
 | 行为                     | 客户端                                                       | 服务端                                                       |
 | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 发起对局                 | 1{sponsor:int, inviter:int, behavior:ADD_GAME, (如果不分先，black、white一定要有), rule:{giver:bool, giverColor:int, giverNum:int, divideFirst:bool}} | 2成功{status:SUCCESS, id:int}<br />失败{status:FAIL, msg:string} |
-| 服务器发起对局邀请       | 2{id:int, behavior:REFUSE}<br />{id:int, behavior:AGREE}     | 1{sponsor:int, inviter:int, behavior:INVITE, (如果不分先，black、white一定要有), rule:{giver:bool, giverColor:int, giverNum:int, divideFirst:bool}} |
-| 申请结算                 | 1{id:int, behavior:SCORING}                                  | 2成功{status:SUCCESS}<br />失败{status:FAIL, msg:string}     |
-| 服务器发起结算           | 2{behavior:REFUSE}<br />{behavior:AGREE}                     | 1{behavior:SCORING}                                          |
+| 发起对局                 | 1 http post, body:{sponsor:int, inviter:int, black:int, white:int, giver:bool, giverColor:int, giverNum:int, divideFirst:bool} | 2 ws json{status:string(success, id:int}<br />{status:string(fail), msg:string} |
+| 服务器发起对局邀请       | 2 http post: game/refuseaddgame, body:{sponsor: Int}<br />http post: game/agreeaddgame, body:{sponsor: Int, inviter: Int, black: Int, white: Int} | 1ws {sponsor:int, inviter:int, behavior:invite, black:int, white:int, giver:bool, giverColor:int, giverNum:int, divideFirst:boo}} |
+| 申请结算                 | 1http post:game/score, body{to: Int}                         | 2 ws json成功{status:SUCCESS，winner:int}<br />失败{status:FAIL, msg:string} |
+| 服务器发起结算           | 2 http post:game/refusescore, body:{to:Int}<br />http post:game/agreescore, body{gameId:int, to:int} | 1{behavior:socre}                                            |
 | 认输                     | 1{id:int, behavior:SURRENDER}                                | 2成功{status:SUCCESS}<br />失败{status:FAIL, msg:string}     |
 | 服务器提交对方认输       |                                                              | 1{behavior:SURRENDER}                                        |
-| 获取用户所有对局简要信息 | 1{sponsor:int, behavior:USER_ALL_GAME}                       | 2成功{status:SUCCESS, games:list}<br />失败{status:FAIL, msg:string} |
+| 获取用户所有对局简要信息 | 1 http get:game/getgames, body{userId:int}                   | 2 gamelist                                                   |
 
 ## Game Info Protocol
 
 | 行为           | 客户端                                                       | 服务器                                                       |
 | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 添加步         | 1{id:int, player:bool, stepNum:int, location:string, behavior:ADD_STEP} | 2成功{status:SUCCESS}<br />失败{status:FAIL, msg:string}     |
-| 服务器发送新步 |                                                              | 1{player:bool, stepNum:int, location:string, behavior:ADD_STEP} |
-| 悔棋           | 1{id:int,stepNum:int, behavior:DELETE_STEP}                  | 2成功{status:SUCCESS}<br />失败{status:FAIL, msg:string}     |
+| 添加步         | 1 http post:gameinfo/addstep, body:{gameId:int, player:int, stepNum:int, location:string, to:int} | 2成功{status:SUCCESS}<br />失败{status:FAIL, msg:string}     |
+| 服务器发送新步 |                                                              | 1{stepNum:int, location:string, behavior:add_step}           |
+| 悔棋           | 1{id:int,stepNum:int, behavior:DELETE_STEP}                  | 2成功{status:SUCCESS}<br />失败{status:FAIL}                 |
 | 服务器发送悔棋 | 2{behavior:REFUSE}<br />{behavior:AGREE}                     | 1{behavior:DELETE_STEP}                                      |
 | 获取所有对局步 | 1{id:int, behavior:GET_ALL_STEP}                             | 2成功{status:SUCCESS, steps:list}<br />失败{status:FAIL, msg:string} |
 

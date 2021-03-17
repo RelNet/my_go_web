@@ -1,10 +1,9 @@
-package hzh.my_go_web.controller
+package hzh.my_go_web.controllers
 
 import com.alibaba.fastjson.JSONObject
 import hzh.my_go_web.model.Status
 import hzh.my_go_web.util.sql.service.RankService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController

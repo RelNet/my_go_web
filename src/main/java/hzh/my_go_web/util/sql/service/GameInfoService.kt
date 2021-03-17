@@ -2,7 +2,9 @@ package hzh.my_go_web.util.sql.service
 
 import hzh.my_go_web.model.GameInfo
 import hzh.my_go_web.util.sql.Hibernate
+import org.springframework.stereotype.Service
 
+@Service
 class GameInfoService {
 
     fun addStep(gameId: Int, player: Int, stepNum: Int, location: String) {
@@ -15,5 +17,11 @@ class GameInfoService {
         val hql = "DELETE FROM GameInfo game_info WHERE game_id = $gameId AND step_num = $stepNum"
         val hibernate = Hibernate<Any, Any>()
         hibernate.delete(hql)
+    }
+
+    fun getAllStep(gameId: Int):List<GameInfo> {
+        val hql = "SELECT player, stepNum, location FROM GameInfo game_info WHERE game_id = $gameId"
+        val hibernate = Hibernate<Any, GameInfo>()
+        return hibernate.queryList(hql)
     }
 }

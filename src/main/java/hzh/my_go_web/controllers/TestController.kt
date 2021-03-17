@@ -1,8 +1,7 @@
-package hzh.my_go_web.controller
+package hzh.my_go_web.controllers
 
 import hzh.my_go_web.websocket.WebSocket
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
